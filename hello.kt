@@ -192,5 +192,70 @@ fun main() {
     } while (cakesBaked < cakesEaten)
     //hatultesztelős ciklus, azaz először lefut a ciklus, majd utána a feltétel
     
+    println(add(1, 2))
     
+    printMessageWithPrefix("Hello", "World")
+    
+    println("The bigger number is:" + bigger(1, 2))
+    
+    //you can make a function way easyer with lambda 
+    val sum = { x: Int, y: Int -> x + y }
+    println(sum(1, 2))
+    
+    passtootherfunction()
+    
+    tailinglambda()
+    
+}
+//end of main
+
+fun add(x: Int, y: Int): Int { // function with return value ezért kell return és ezt jelöli a : Int
+    
+    return x + y
+}
+
+
+fun printMessageWithPrefix(message: String, prefix: String) { // function without return value ezért nincs return és ezt jelöli a : Unit
+    println("[$prefix] $message")
+}
+
+
+fun bigger(a: Int, b: Int): Int {
+    if (a > b) {
+        return a
+        }
+    else if (a < b) {
+        return b
+    }
+    else {
+        return 0
+    }
+    
+    
+    
+}
+
+fun passtootherfunction(){
+    
+    val numbers = listOf(1, -2, 3, -4, 5, -6)
+
+    val positives = numbers.filter ({ x -> x > 0 })
+
+    val isNegative = { x: Int -> x < 0 }
+    val negatives = numbers.filter(isNegative)
+
+    println(positives)
+    // [1, 3, 5]
+    println(negatives)
+    // [-2, -4, -6]
+
+}
+
+fun tailinglambda(){
+    // The initial value is zero. 
+    // The operation sums the initial value with every item in the list cumulatively.
+    println(listOf(1, 2, 3).fold(0, { x, item -> x + item })) // 6
+
+    // Alternatively, in the form of a trailing lambda
+    println(listOf(1, 2, 3).fold(0) { x, item -> x + item })  // 6
 }

@@ -116,4 +116,81 @@ fun main() {
     println(200 in readOnlyJuiceMenu.values)
     // false
     
+    
+    
+    val d: Int
+    val check = true
+
+    if (check) {
+        d = 1
+    } else {
+        d = 2
+    }
+
+    println(d) // 1
+    println(if (check) 1 else 2) // 1
+    
+    val obj = "Hello"
+    
+    
+    
+    // when is like switch in other languages
+    when (obj) {
+        // Checks whether obj equals to "1"
+        "1" -> println("One")
+        // Checks whether obj equals to "Hello"
+        "Hello" -> println("Greeting")
+        // Default statement
+        else -> println("Unknown")     
+    }
+    
+     val trafficLightState = "Red" // This can be "Green", "Yellow", or "Red"
+
+    val trafficAction = when {
+        trafficLightState == "Green" -> "Go"
+        trafficLightState == "Yellow" -> "Slow down"
+        trafficLightState == "Red" -> "Stop"
+        else -> "Malfunction"
+    }
+
+    println(trafficAction)
+    
+    
+     val trafficAction2 = when (trafficLightState) {
+        "Green" -> "Go"
+        "Yellow" -> "Slow down"
+        "Red" -> "Stop"
+        else -> "Malfunction"
+    }
+
+    println(trafficAction2)  
+    
+    //LOOPS
+    for (number in 1..5) { 
+    // number is the iterator and 1..5 is the range
+    print(number)
+    } // 12345
+    
+    val cakes = listOf("carrot", "cheese", "chocolate")
+
+    for (cake in cakes) {
+        println("Yummy, it's a $cake cake!")
+    }
+        
+    var cakesEaten = 0
+    while (cakesEaten < 3) {
+        println("Eat a torta ")
+        cakesEaten++
+    }
+    
+    
+    var cakesBaked = 0
+    
+    do {
+        println("Bake a cake")
+        cakesBaked++
+    } while (cakesBaked < cakesEaten)
+    //hatultesztelős ciklus, azaz először lefut a ciklus, majd utána a feltétel
+    
+    
 }

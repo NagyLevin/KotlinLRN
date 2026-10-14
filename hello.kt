@@ -206,8 +206,140 @@ fun main() {
     
     tailinglambda()
     
-}
+    classesandobjects()
+    
+    compareclasses()
+    
+    copyclasses()
+
+    
+    // "hello" is the receiver
+    println("hello".bold())
+    // <b>hello</b>
+    
+    
+    
+     // Creates an instance of the Electronic class
+    val laptop = Electronic(name = "Laptop", price = 1000.0, warranty = 2)
+
+    println(laptop.productInfo())
+    // Product: Laptop, Category: Electronic, Price: 1000.0
+    
+    val paymentMethod = CreditCardPayment("1234 5678 9012 3456", "John Doe", "12/25")
+    println(paymentMethod.initiatePayment(100.0))
+    // Payment of $100.0 initiated using Credit Card ending in 3456.
+
+    println("Payment is by ${paymentMethod.paymentType}")
+    // Payment is by Credit Card
+    
+     println(AppConfig)
+    // AppConfig
+    
+    println(AppConfig.appName)
+    // My Application
+    
+    BigBen.getBongs(12)
+    
+    val car1 = Car("Toyota", "Corolla", 4)
+    val car2 = Car("Honda", "Civic", 2)
+
+    // Uses the overridden displayInfo() function
+    car1.displayInfo()
+    // Car Info: Make - Toyota, Model - Corolla, Number of Doors - 4
+    car2.displayInfo()
+    // Car Info: Make - Honda, Model - Civic, Number of Doors - 2
+    
+    val person = Person(firstName = "John", lastName = "Doe")
+
+    // Use the extension property
+    println(person.fullName)
+    // John Doe
+    
+}    
 //end of main
+
+//get set in kotlin
+data class Person(val firstName: String, val lastName: String)
+
+// Extension property to get the full name
+val Person.fullName: String
+    get() = "$firstName $lastName"
+
+
+//open class with override
+open class Vehicle(val make: String, val model: String) {
+    open fun displayInfo() {
+        println("Vehicle Info: Make - $make, Model - $model")
+    }
+}
+
+class Car(make: String, model: String, val numberOfDoors: Int) : Vehicle(make, model) {
+    override fun displayInfo() {
+        println("Car Info: Make - $make, Model - $model, Number of Doors - $numberOfDoors")
+    }
+}
+
+class BigBen {
+    companion object Bonger {
+        fun getBongs(nTimes: Int) {
+            repeat(nTimes) { print("BONG ") }
+            }
+        }
+    }
+
+
+data object AppConfig { 
+    var appName: String = "My Application"
+    var version: String = "1.0.0"
+}
+
+
+
+
+/*
+Interfaces are similar to classes, but they have some differences:
+You can't create an instance of an interface. They don't have a constructor or header.
+Their functions and properties are implicitly inheritable by default. In Kotlin, we say that they are "open."
+You don't need to mark their functions as abstract if you don't give them an implementation.
+*/
+interface PaymentMethod {
+    fun initiatePayment(amount: Double): String
+}
+
+interface PaymentType {
+    val paymentType: String
+}
+
+class CreditCardPayment(val cardNumber: String, val cardHolderName: String, val expiryDate: String) : PaymentMethod,
+    PaymentType {
+    override fun initiatePayment(amount: Double): String {
+        // Simulate processing payment with credit card
+        return "Payment of $$amount initiated using Credit Card ending in ${cardNumber.takeLast(4)}."
+    }
+
+    override val paymentType: String = "Credit Card"
+}
+
+
+
+abstract class Product(val name: String, var price: Double) {
+    // Abstract property for the product category
+    abstract val category: String
+
+    // A function that can be shared by all products
+    fun productInfo(): String {
+        return "Product: $name, Category: $category, Price: $price"
+    }
+}
+class Electronic(name: String, price: Double, val warranty: Int) : Product(name, price) {
+    override val category = "Electronic"
+}
+
+
+
+
+fun String.bold(): String = "<b>$this</b>" // this is the receiver //you can extend a class with a function
+
 
 fun add(x: Int, y: Int): Int { // function with return value ezért kell return és ezt jelöli a : Int
     
@@ -258,4 +390,55 @@ fun tailinglambda(){
 
     // Alternatively, in the form of a trailing lambda
     println(listOf(1, 2, 3).fold(0) { x, item -> x + item })  // 6
+}
+
+
+
+class Contact(val id: Int, var email: String){
+    
+    fun printId() {
+        println(id)
+    }
+}
+
+fun classesandobjects() {
+    val contact = Contact(1, "mary@gmail.com")
+    
+    // Prints the value of the property: email
+    println(contact.email)           
+    // mary@gmail.com
+
+    // Updates the value of the property: email
+    contact.email = "jane@gmail.com"
+    
+    // Prints the new value of the property: email
+    println(contact.email)           
+    // jane@gmail.com
+
+    contact.printId()
+    // 1
+}
+
+data class User(val name: String, val id: Int)
+
+fun compareclasses() {
+    
+    val firstUser = User("Alex", 1)
+    val secondUser = User("Alex", 1)
+    val thirdUser = User("Max", 2)
+
+    println("firstUser == secondUser: ${firstUser == secondUser}") 
+    println("firstUser == thirdUser: ${firstUser == thirdUser}")   
+
+    
+    
+}
+
+
+fun copyclasses() {
+    val user = User("Alex", 1)
+
+    println(user.copy())       
+    println(user.copy("Max"))  
+    println(user.copy(id = 3)) 
 }
